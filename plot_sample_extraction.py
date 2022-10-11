@@ -7,7 +7,7 @@ import json
 import numpy as np
 import time
 import operator
-
+import tqdm
 
 scatter_word_list = ['scatter', "'scatter'", '"scatter"', 'scatter_kws', "'o'", "'bo'", "'r+'", '"o"', '"bo"', '"r+"']
 hist_word_list = ['hist', "'hist'", '"hist"', 'bar', "'bar'", '"bar"', 'countplot', 'barplot']
@@ -61,7 +61,7 @@ def preprocess(data_folder, init_data_name, prep_data_name, prep_hard_data_name=
 	clean_samples = []
 	init_data_name = os.path.join(data_folder, init_data_name)
 	with open(init_data_name) as fin:
-		for i, line in enumerate(fin):
+		for i, line in enumerate(tqdm.tqdm(fin)):
 			sample = json.loads(line)
 
 			# extract code sequence without comments and empty strings
