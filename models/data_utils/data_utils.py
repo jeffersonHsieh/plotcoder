@@ -18,6 +18,7 @@ from six.moves import range
 from six.moves import zip
 import ast
 import ast2json
+from tqdm import tqdm
 
 import torch
 from torch.autograd import Variable
@@ -208,7 +209,7 @@ class DataProcessor(object):
 	def load_data(self, filename):
 		init_samples = json.load(open(filename, 'r'))
 		samples = []
-		for sample in init_samples:
+		for sample in tqdm(init_samples):
 			code_seq = sample['code_tokens']
 			label = self.label_extraction(code_seq)
 			samples.append(sample)
@@ -425,7 +426,8 @@ class DataProcessor(object):
 		cnt_code = 0
 		max_target_code_seq_len = 0
 		min_target_code_seq_len = 512
-		for sample_idx, sample in enumerate(samples):
+		print('preprocessing')
+		for sample_idx, sample in enumerate(tqdm(samples)):
 			init_code_seq = sample['code_tokens']
 			api_seq = sample['api_sequence']
 
